@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO.Ports;
 using System.Threading;
-	
+
 namespace ComPortCheck
 {
     public partial class Form1 : Form
@@ -52,59 +52,96 @@ namespace ComPortCheck
             {
                 comboBox4.SelectedIndex = 0;
             }
+
         }
 
 
         private void testStartButton_Click(object sender, EventArgs e)
         {
+            Judgelabel.Text = "-";
+            TRX1judge.Text = "-";
+            TRX2judge.Text = "-";
+            EXT1judge.Text = "-";
+            EXT2judge.Text = "-";
+
+
+
+
+            string[] ComPortnum = new string[2];
+            string[] ComPortnumEXT = new string[2];
+
+            ComPortnum[0] = comboBox1.Text;
+            ComPortnum[1] = comboBox2.Text;
+            
+            ComPortnumEXT[0] = comboBox3.Text;
+            ComPortnumEXT[1] = comboBox4.Text;
+
+
+
+            const int N = 4;
+            Thread[] threads = new Thread[N];
+
+            for (int i = 0; i < N/2; i++)
+            {
+                threads[i] = new Thread(new ParameterizedThreadStart(comPortOpen));
+                threads[i].Start(ComPortnum[i]);
+            }
+
+            for (int i = 0; i < N / 2; i++)
+            {
+                threads[i] = new Thread(new ParameterizedThreadStart(comPortOpen));
+                threads[i].Start(ComPortnumEXT[i]);
+            }
+
+            for (int i = 0; i < N; ++i)
+            {
+                threads[i].Join();
+            }
+        }
+
+        private void comPortOpen(object o)
+        {
+            string comPortName = (string)o;
+            //ポートセッティング
             int BaudRate = 9600;
             Parity Parity = Parity.None;
             int DataBits = 8;
             StopBits StopBits = StopBits.One;
             SerialPort myPort =
-            new SerialPort(comboBox1.Text, BaudRate, Parity, DataBits, StopBits);
-            SerialPort myPort2 =
-            new SerialPort(comboBox2.Text, BaudRate, Parity, DataBits, StopBits);
-            SerialPort myPort3 =
-            new SerialPort(comboBox3.Text, BaudRate, Parity, DataBits, StopBits);
-            SerialPort myPort4 =
-            new SerialPort(comboBox4.Text, BaudRate, Parity, DataBits, StopBits);
-
+            new SerialPort(comPortName, BaudRate, Parity, DataBits, StopBits);
+            
             try
             {
                 myPort.Open();
-                myPort2.Open();
-                myPort3.Open();
-                myPort4.Open();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                return;
             }
 
-            
+
             //TRX1->TRX2 送信
             int result = 0;
             do
             {
-                if (!dataSendTest(myPort, myPort2))
+                if (!dataSendTest(myPort))
                 {
-                    break;
-                }
-                if (!dataSendTest(myPort2, myPort))
-                {
-                    break;
-                }
-                if (!dataSendTest(myPort3, myPort4))
-                {
-                    break;
-                }
-                if (!dataSendTest(myPort4, myPort3))
-                {
-
+                    TRX1judge.Text = "NG";
                     break;
                 }
                 result = 1;
+
+            } while (false);
+
+            do
+            {
+
+                if (!dataGetTest(myPort))
+                {
+                    TRX1judge.Text = "NG";
+                    break;
+                }
             } while (false);
 
             if (result == 1)
@@ -112,11 +149,13 @@ namespace ComPortCheck
             else
                 Judgelabel.Text = "NG";
 
-            portCloseall(myPort,myPort2,myPort3,myPort4);
+
+            portCloseall(myPort);
+
 
         }
 
-        private Boolean dataSendTest(SerialPort myPort, SerialPort myPort2)
+        private Boolean dataSendTest(SerialPort myPort)
         {
             if (myPort.IsOpen == false)
             {
@@ -130,18 +169,28 @@ namespace ComPortCheck
             {
                 MessageBox.Show(ex.Message);
             }
+
+            return true;
+
+        }
+
+        private Boolean dataGetTest(SerialPort myPort)
+        {
+            System.Threading.Thread.Sleep(200);
             string data = null;
-            System.Threading.Thread.Sleep(100);
+            
+            if (myPort.IsOpen == false)
+            {
+                return false;
+            }
             try
             {
-                data = myPort2.ReadExisting();
+                myPort.ReadExisting();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
-            //string data = myPort2.ReadLine();
 
             int iCompare = data.CompareTo("ABCDEF\n");
             if (iCompare == 0)
@@ -152,19 +201,17 @@ namespace ComPortCheck
             {
                 return false;
             }
-
         }
 
-        private void portCloseall(SerialPort myPort, SerialPort myPort2, SerialPort myPort3, SerialPort myPort4)
+        private void portCloseall(SerialPort myPort)
         {
             myPort.Close();
             myPort.Dispose();
-            myPort2.Close();
-            myPort2.Dispose();
-            myPort3.Close();
-            myPort3.Dispose();
-            myPort4.Close();
-            myPort4.Dispose();
-        }         
+        }
+
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
+        }
     }
 }

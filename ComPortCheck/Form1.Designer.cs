@@ -40,11 +40,17 @@
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.exitButton = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.TRX1judge = new System.Windows.Forms.Label();
+            this.TRX2judge = new System.Windows.Forms.Label();
+            this.EXT1judge = new System.Windows.Forms.Label();
+            this.EXT2judge = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // testStartButton
             // 
-            this.testStartButton.Location = new System.Drawing.Point(31, 207);
+            this.testStartButton.Location = new System.Drawing.Point(12, 207);
             this.testStartButton.Name = "testStartButton";
             this.testStartButton.Size = new System.Drawing.Size(75, 23);
             this.testStartButton.TabIndex = 0;
@@ -64,7 +70,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(181, 9);
+            this.label3.Location = new System.Drawing.Point(130, 9);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(58, 12);
             this.label3.TabIndex = 5;
@@ -119,7 +125,7 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(151, 37);
+            this.comboBox1.Location = new System.Drawing.Point(100, 37);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 20);
             this.comboBox1.TabIndex = 17;
@@ -127,7 +133,7 @@
             // comboBox2
             // 
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(151, 81);
+            this.comboBox2.Location = new System.Drawing.Point(100, 81);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(121, 20);
             this.comboBox2.TabIndex = 18;
@@ -135,7 +141,7 @@
             // comboBox3
             // 
             this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(151, 120);
+            this.comboBox3.Location = new System.Drawing.Point(100, 120);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(121, 20);
             this.comboBox3.TabIndex = 19;
@@ -143,16 +149,81 @@
             // comboBox4
             // 
             this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Location = new System.Drawing.Point(151, 158);
+            this.comboBox4.Location = new System.Drawing.Point(100, 158);
             this.comboBox4.Name = "comboBox4";
             this.comboBox4.Size = new System.Drawing.Size(121, 20);
             this.comboBox4.TabIndex = 20;
+            // 
+            // exitButton
+            // 
+            this.exitButton.Location = new System.Drawing.Point(100, 207);
+            this.exitButton.Name = "exitButton";
+            this.exitButton.Size = new System.Drawing.Size(75, 23);
+            this.exitButton.TabIndex = 21;
+            this.exitButton.Text = "閉じる";
+            this.exitButton.UseVisualStyleBackColor = true;
+            this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(276, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(29, 12);
+            this.label2.TabIndex = 22;
+            this.label2.Text = "判定";
+            // 
+            // TRX1judge
+            // 
+            this.TRX1judge.AutoSize = true;
+            this.TRX1judge.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.TRX1judge.Location = new System.Drawing.Point(283, 33);
+            this.TRX1judge.Name = "TRX1judge";
+            this.TRX1judge.Size = new System.Drawing.Size(22, 24);
+            this.TRX1judge.TabIndex = 23;
+            this.TRX1judge.Text = "-";
+            // 
+            // TRX2judge
+            // 
+            this.TRX2judge.AutoSize = true;
+            this.TRX2judge.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.TRX2judge.Location = new System.Drawing.Point(283, 81);
+            this.TRX2judge.Name = "TRX2judge";
+            this.TRX2judge.Size = new System.Drawing.Size(22, 24);
+            this.TRX2judge.TabIndex = 24;
+            this.TRX2judge.Text = "-";
+            // 
+            // EXT1judge
+            // 
+            this.EXT1judge.AutoSize = true;
+            this.EXT1judge.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.EXT1judge.Location = new System.Drawing.Point(283, 122);
+            this.EXT1judge.Name = "EXT1judge";
+            this.EXT1judge.Size = new System.Drawing.Size(22, 24);
+            this.EXT1judge.TabIndex = 25;
+            this.EXT1judge.Text = "-";
+            // 
+            // EXT2judge
+            // 
+            this.EXT2judge.AutoSize = true;
+            this.EXT2judge.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.EXT2judge.Location = new System.Drawing.Point(283, 160);
+            this.EXT2judge.Name = "EXT2judge";
+            this.EXT2judge.Size = new System.Drawing.Size(22, 24);
+            this.EXT2judge.TabIndex = 26;
+            this.EXT2judge.Text = "-";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(412, 258);
+            this.ClientSize = new System.Drawing.Size(379, 244);
+            this.Controls.Add(this.EXT2judge);
+            this.Controls.Add(this.EXT1judge);
+            this.Controls.Add(this.TRX2judge);
+            this.Controls.Add(this.TRX1judge);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.exitButton);
             this.Controls.Add(this.comboBox4);
             this.Controls.Add(this.comboBox3);
             this.Controls.Add(this.comboBox2);
@@ -165,6 +236,8 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.testStartButton);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form1";
             this.Text = "ComPortCheck";
             this.ResumeLayout(false);
@@ -186,6 +259,12 @@
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.Button exitButton;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label TRX1judge;
+        private System.Windows.Forms.Label TRX2judge;
+        private System.Windows.Forms.Label EXT1judge;
+        private System.Windows.Forms.Label EXT2judge;
     }
 }
 
